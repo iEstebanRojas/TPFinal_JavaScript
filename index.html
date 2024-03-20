@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Simulador de Créditos - ROJAS ESTEBAN</title>
+</head>
+<body>
+
+<div class="container-index">
+
+  <header class="header">
+    <h1>Simulador de Créditos</h1>
+  </header>
+
+  <section class="section-1">
+    <div id="formularioPrestamo">
+      <label for="montoInput">Monto del préstamo ($):</label>
+      <input type="number" id="montoInput" placeholder="Ingrese el monto" required>
+      
+      <label for="tasaInput">Tasa de interés anual (%):</label>
+      <input type="number" id="tasaInput" placeholder="Ingrese la tasa de interés" required>
+      
+      <label for="periodosInput">Número de cuotas:</label>
+      <input type="number" id="periodosInput" placeholder="Ingrese el número de cuotas" required>
+      
+      <button id="calcularBtn">Calcular</button>
+    </div>
+    
+    <div id="resultado">
+
+      <!-- Los resultados del cálculo se mostrarán aquí -->
+      
+    </div>
+  </section>
+
+  <aside class="aside-index">
+    <p>Utiliza este simulador para calcular el monto total de tu préstamo incluyendo intereses. Simplemente introduce el monto del préstamo, la tasa de interés anual, y el número de cuotas para ver el detalle de tu plan de pago.</p>
+  </aside>
+
+  <footer class="footer-container">
+    <a href="https://www.whatsapp.com"><img class="icono-social" src="./img/footer/whatsapp.png" alt="WhatsApp"></a>
+    <a href="https://www.instagram.com"><img class="icono-social" src="./img/footer/instagram.png" alt="Instagram"></a>
+    <a href="https://www.linkedin.com"><img class="icono-social" src="./img/footer/linkedin.png" alt="LinkedIn"></a>
+  </footer>
+
+</div>
+
+<script src="main.js"></script>
+</body>
+</html>
