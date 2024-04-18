@@ -8,21 +8,21 @@
 body, html {
   width: 100%;
   height: 100%;
-  background-color: #272424; /* Fondo general más claro */
+  background-color: #272424; 
 }
 
 .container-index {
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
-  background-color: #FFFFFF; /* Fondo del contenedor en blanco */
+  background-color: #FFFFFF; 
 }
 
 .header {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #4CAF50; /* Verde para el encabezado */
+  background-color: #4CAF50; 
   padding: 20px;
   margin-bottom: 20px;
   border-radius: 5px;
@@ -30,7 +30,7 @@ body, html {
 
 .header h1 {
   font-size: 24px;
-  color: #FFFFFF; /* Texto blanco en el encabezado */
+  color: #FFFFFF; 
 }
 
 #formularioPrestamo label,
@@ -48,31 +48,42 @@ body, html {
 }
 
 #formularioPrestamo input {
-  border: 1px solid #BDBDBD; /* Bordes de los inputs en gris */
-  background-color: #FFFFFF; /* Fondo de los inputs en blanco */
+  border: 1px solid #BDBDBD; 
+  background-color: #FFFFFF; 
 }
 
 #formularioPrestamo input:focus {
-  border-color: #4CAF50; /* Bordes en verde al enfocar */
+  border-color: #4CAF50; 
 }
 
 #formularioPrestamo button {
-  background-color: #4CAF50; /* Botón en verde */
-  color: #FFFFFF; /* Texto del botón en blanco */
+  background-color: #4CAF50; 
+  color: #FFFFFF;
   border: none;
   cursor: pointer;
   border-radius: 5px;
 }
 
 #formularioPrestamo button:hover {
-  background-color: #43A047; /* Verde más oscuro al pasar el mouse */
+  background-color: #43A047;
+}
+
+#historialCalculos {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #FFFFFF;
+  border: 1px solid #4CAF50;
+  font-size: 14px;
+  color: #333;
+  border-radius: 5px;
+  text-align: left;
 }
 
 #resultado {
   margin-top: 20px;
-  padding: 8px;
-  background-color: #FFFFFF; /* Fondo del resultado en blanco */
-  border: 1px solid #4CAF50; /* Borde del resultado en verde */
+  padding: 10px;
+  background-color: #FFFFFF;
+  border: 1px solid #4CAF50;
   font-size: 16px;
   text-align: center;
   border-radius: 5px;
@@ -81,8 +92,8 @@ body, html {
 .aside-index {
   padding: 20px;
   font-size: 16px;
-  color: #757575; /* Texto del aside en gris */
-  background-color: #E8F5E9; /* Fondo del aside en verde muy claro */
+  color: #757575;
+  background-color: #E8F5E9;
   margin-bottom: 20px;
   border-radius: 5px;
 }
@@ -100,4 +111,14 @@ body, html {
 
 .icono-social:hover {
   transform: scale(1.1);
+}
+
+#historialIntereses {
+  margin-top: 20px;
+  padding: 8px;
+  background-color: #FFFFFF;
+  border: 1px solid #4CAF50;
+  font-size: 16px;
+  text-align: left;
+  border-radius: 5px;
 }
