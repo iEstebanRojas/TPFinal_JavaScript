@@ -39,6 +39,14 @@
     <div id="historialCalculos">
       <!-- El historial de cálculos se mostrará aquí -->
     </div>
+
+    <label for="tasaBusqueda">Buscar por tasa de interés (%):</label>
+      <input type="number" id="tasaBusqueda" placeholder="Ingrese tasa de interés">
+      <button onclick="buscarPorTasaInteres(parseFloat(document.getElementById('tasaBusqueda').value))">Buscar</button>
+    <div id="resultadosBusqueda">
+      <!-- Los resultados de la búsqueda se mostrarán aquí -->
+    </div>
+
   </section>
 
   <aside class="aside-index">

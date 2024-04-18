@@ -55,4 +55,18 @@ function mostrarResultados(cuotaFija, periodos) {
     document.getElementById('resultado').innerHTML = mensajeResultado;
 }
 
+// Función para buscar cálculos por tasa de interés específica
+function buscarPorTasaInteres(tasaBuscada) {
+    let resultados = historialCalculos.filter(calculo => calculo.tasaInteres === tasaBuscada);
+    let mensajeResultado = `<strong>Resultados de búsqueda para tasa de interés ${tasaBuscada}%:</strong><br>`;
+    if (resultados.length > 0) {
+        resultados.forEach(registro => {
+            mensajeResultado += `Fecha: ${registro.fecha.toLocaleDateString('es-AR', {day: '2-digit', month: '2-digit', year: 'numeric'})}, Monto: ${registro.monto}, Cuotas: ${registro.periodos}, Cuota Fija: ${registro.cuotaFija.toFixed(2)}<br>`;
+        });
+    } else {
+        mensajeResultado += 'No se encontraron cálculos con esta tasa de interés.';
+    }
+    document.getElementById('resultadosBusqueda').innerHTML = mensajeResultado;
+}
+
 document.getElementById('calcularBtn').addEventListener('click', calcularPrestamo);
