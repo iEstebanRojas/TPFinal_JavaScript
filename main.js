@@ -193,6 +193,5 @@ $(document).ready(function() {
     // Simulación de llamada AJAX para obtener tasas de interés
     obtenerTasasDeInteres().then(tasas => {
         console.log('Tasas de interés obtenidas del servidor:', tasas);
-        // Aquí podrías hacer algo con las tasas obtenidas, como llenar un dropdown
     });
 });
