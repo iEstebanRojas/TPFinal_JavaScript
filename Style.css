@@ -105,20 +105,20 @@ body, html {
 }
 
 .btn-secondary {
-  background-color: #2196F3; /* Color azul */
-  color: #FFFFFF; /* Texto blanco */
+  background-color: #2196F3;
+  color: #FFFFFF;
   border: none;
   cursor: pointer;
   border-radius: 5px;
-  padding: 10px 20px; /* Añadir padding lateral */
-  font-size: 16px; /* Asegurar tamaño de fuente consistente */
+  padding: 10px 20px;
+  font-size: 16px;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Añadir sombra */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .btn-secondary:hover {
-  background-color: #1976D2; /* Azul más oscuro al pasar el cursor */
-  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Sombra más profunda al pasar el cursor */
+  background-color: #1976D2;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 
 .result-container {
@@ -183,7 +183,7 @@ body, html {
   padding: 5px;
   position: absolute;
   z-index: 1;
-  bottom: 125%; /* Mostrar encima del elemento */
+  bottom: 125%;
   left: 50%;
   margin-left: -70px;
   opacity: 0;
