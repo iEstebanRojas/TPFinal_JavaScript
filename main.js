@@ -1,6 +1,16 @@
 // Array para almacenar historial de préstamos
 let historialCalculos = [];
 
+// Guardar referencias a los elementos
+const $montoInput = $('#montoInput');
+const $tasaInput = $('#tasaInput');
+const $periodosInput = $('#periodosInput');
+const $fechaInicio = $('#fechaInicio');
+const $resultado = $('#resultado');
+const $historialCalculos = $('#historialCalculos');
+const $errores = $('#errores');
+const $notification = $('#notification');
+
 // Función para calcular la cuota
 function calcularCuotaFija(monto, tasaInteres, periodos) {
     const tasaDecimal = tasaInteres / 100 / 12; // Convertir tasa anual en mensual
@@ -17,7 +27,7 @@ function registrarCalculo(fecha, monto, tasaInteres, periodos, cuotaFija) {
         periodos: periodos,
         cuotaFija: cuotaFija
     });
-    guardarHistorial();
+    guardarHistorial(); // Guardar historial en localStorage
 }
 
 // Función para mostrar historial
@@ -30,18 +40,39 @@ function mostrarHistorialCalculos() {
             console.error('La fecha no es un objeto Date:', registro.fecha);
         }
     });
-    document.getElementById('historialCalculos').innerHTML = registros;
+    $historialCalculos.html(registros);
 }
 
 // Función principal para calcular el préstamo y actualizar con los resultados.
 function calcularPrestamo() {
-    const monto = parseFloat(document.getElementById('montoInput').value);
-    const tasaInteres = parseFloat(document.getElementById('tasaInput').value);
-    const periodos = parseInt(document.getElementById('periodosInput').value);
-    const fechaInicio = document.getElementById('fechaInicio').value;
+    let esValido = true;
+    $('.error-message').text('');  // Limpiar mensajes de error anteriores
 
-    if (isNaN(monto) || monto <= 0 || isNaN(tasaInteres) || tasaInteres <= 0 || isNaN(periodos) || periodos <= 0 || fechaInicio === '') {
-        mostrarError('Por favor, complete todos los campos correctamente.');
+    const monto = parseFloat($montoInput.val());
+    if (isNaN(monto) || monto <= 0) {
+        mostrarErrorEspecifico('montoInput', 'Por favor, ingrese un monto válido.');
+        esValido = false;
+    }
+
+    const tasaInteres = parseFloat($tasaInput.val());
+    if (isNaN(tasaInteres) || tasaInteres <= 0) {
+        mostrarErrorEspecifico('tasaInput', 'Por favor, ingrese una tasa de interés válida.');
+        esValido = false;
+    }
+
+    const periodos = parseInt($periodosInput.val());
+    if (isNaN(periodos) || periodos <= 0) {
+        mostrarErrorEspecifico('periodosInput', 'Por favor, ingrese un número de cuotas válido.');
+        esValido = false;
+    }
+
+    const fechaInicio = $fechaInicio.val();
+    if (fechaInicio === '') {
+        mostrarErrorEspecifico('fechaInicio', 'Por favor, seleccione una fecha de inicio.');
+        esValido = false;
+    }
+
+    if (!esValido) {
         return;
     }
 
@@ -49,6 +80,7 @@ function calcularPrestamo() {
     registrarCalculo(fechaInicio, monto, tasaInteres, periodos, cuotaFija);
     mostrarResultados(cuotaFija, periodos, fechaInicio);
     mostrarHistorialCalculos();
+    mostrarNotificacion("Cálculo realizado con éxito.");
 }
 
 // Función para generar fechas de cuotas
@@ -77,45 +109,50 @@ function mostrarResultados(cuotaFija, periodos, fechaInicio) {
         mensajeResultado += `Cuota ${index + 1}: ${fecha.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' })}<br>`;
     });
 
-    document.getElementById('resultado').innerHTML = mensajeResultado;
+    $resultado.html(mensajeResultado).hide().fadeIn('slow');
+}
+
+// Función para mostrar mensajes de error específicos
+function mostrarErrorEspecifico(campo, mensaje) {
+    $(`#${campo}Error`).text(mensaje).hide().fadeIn('slow');
 }
 
 // Función para mostrar mensajes de error en la página
 function mostrarError(mensaje) {
-    const divError = document.getElementById('errores');
-    divError.innerHTML = `<p class='error'>${mensaje}</p>`;
-    setTimeout(() => divError.innerHTML = '', 3000);  // Limpiar mensaje después de 3 segundos
+    $errores.html(`<p class='error'>${mensaje}</p>`).hide().slideDown();
+    setTimeout(() => $errores.slideUp(), 3000);  // Limpiar mensaje después de 3 segundos
 }
 
 // Función para buscar por tasa de interés
 function buscarPorTasaInteres(tasaBuscada) {
-
-    // Convertir la tasa buscada en un número con una precisión fija
     const tasaBuscadaPrecisa = parseFloat(tasaBuscada).toFixed(2);
-
-    // Variable para almacenar el resultado encontrado
     let resultadoEncontrado = null;
     
     historialCalculos.forEach(calculo => {
         const tasaAlmacenadaRedondeada = parseFloat(calculo.tasaInteres).toFixed(2);
-
-        // Si la tasa almacenada coincide con la tasa buscada, almacenar este resultado y salir del bucle
         if (tasaAlmacenadaRedondeada === tasaBuscadaPrecisa) {
             resultadoEncontrado = calculo;
             return;
         }
     });
 
-    // Mostrar el resultado encontrado o un mensaje si no se encontraron coincidencias
     if (resultadoEncontrado !== null) {
         let mensajeResultado = `<strong>Resultado de búsqueda para tasa de interés ${tasaBuscada}%:</strong><br>`;
         let fechaAlmacenada = resultadoEncontrado.fecha instanceof Date ? resultadoEncontrado.fecha.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }) : resultadoEncontrado.fecha;
         let cuotaFijaFormateada = isNaN(resultadoEncontrado.cuotaFija) ? 'No disponible' : (Number(resultadoEncontrado.cuotaFija)).toFixed(2);
         mensajeResultado += `Fecha: ${fechaAlmacenada}, Monto: ${resultadoEncontrado.monto}, Cuotas: ${resultadoEncontrado.periodos}, Cuota Fija: ${cuotaFijaFormateada}<br>`;
-        document.getElementById('resultadosBusqueda').innerHTML = mensajeResultado;
+        $('#resultadosBusqueda').html(mensajeResultado);
     } else {
-        document.getElementById('resultadosBusqueda').innerHTML = 'No se encontraron cálculos con esta tasa de interés.';
+        $('#resultadosBusqueda').html('No se encontraron cálculos con esta tasa de interés.');
     }
+}
+
+// Función para mostrar notificaciones
+function mostrarNotificacion(mensaje) {
+    $notification.text(mensaje).addClass('show');
+    setTimeout(() => {
+        $notification.removeClass('show');
+    }, 5000);
 }
 
 // Guardar historial en localStorage
@@ -129,17 +166,33 @@ function cargarHistorial() {
     mostrarHistorialCalculos();
 }
 
-// Eventos
-document.addEventListener('DOMContentLoaded', cargarHistorial);
-document.getElementById('calcularBtn').addEventListener('click', calcularPrestamo);
-document.getElementById('tasaBusqueda').addEventListener('keyup', function(event) {
-    if (event.key === 'Enter') {
-        buscarPorTasaInteres(document.getElementById('tasaBusqueda').value);
-    }
-});
+// Función para alternar entre modo claro y oscuro
+function alternarTema() {
+    $('body').toggleClass('dark-mode');
+}
 
-document.getElementById('buscarBtn').addEventListener('click', function() {
-    console.log('El botón de búsqueda fue clickeado');
-    const tasaBuscada = document.getElementById('tasaBusqueda').value;
-    buscarPorTasaInteres(tasaBuscada);
+// Eventos
+$(document).ready(function() {
+    cargarHistorial();
+
+    $('#calcularBtn').on('click', calcularPrestamo);
+    $('#tasaBusqueda').on('keyup', function(event) {
+        if (event.key === 'Enter') {
+            buscarPorTasaInteres($('#tasaBusqueda').val());
+        }
+    });
+
+    $('#buscarBtn').on('click', function() {
+        console.log('El botón de búsqueda fue clickeado');
+        const tasaBuscada = $('#tasaBusqueda').val();
+        buscarPorTasaInteres(tasaBuscada);
+    });
+
+    $('#themeToggle').on('click', alternarTema);
+
+    // Simulación de llamada AJAX para obtener tasas de interés
+    obtenerTasasDeInteres().then(tasas => {
+        console.log('Tasas de interés obtenidas del servidor:', tasas);
+        // Aquí podrías hacer algo con las tasas obtenidas, como llenar un dropdown
+    });
 });

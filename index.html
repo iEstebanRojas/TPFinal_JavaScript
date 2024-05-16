@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>Simulador de Créditos - ROJAS ESTEBAN</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 </head>
 <body>
 
@@ -13,42 +16,65 @@
 
   <header class="header">
     <h1>Simulador de Créditos</h1>
+    <nav>
+      <ul>
+        <li><a href="#formularioPrestamo"><i class="fas fa-calculator"></i> Calculadora</a></li>
+        <li><a href="#historialCalculos"><i class="fas fa-history"></i> Historial</a></li>
+        <li><a href="#resultadosBusqueda"><i class="fas fa-search"></i> Búsqueda</a></li>
+      </ul>
+    </nav>
+    <button id="themeToggle" class="btn-secondary"><i class="fas fa-adjust"></i> Cambiar Tema</button>
   </header>
 
   <section class="section-1">
-    <div id="formularioPrestamo">
-      <label for="montoInput">Monto del préstamo ($):</label>
-      <input type="number" id="montoInput" placeholder="Ingrese el monto" required>
-      
-      <label for="tasaInput">Tasa de interés anual (%):</label>
-      <input type="number" id="tasaInput" placeholder="Ingrese la tasa de interés" required>
-      
-      <label for="periodosInput">Número de cuotas:</label>
-      <input type="number" id="periodosInput" placeholder="Ingrese el número de cuotas" required>
-      
-      <label for="fechaInicio">Fecha de inicio del préstamo:</label>
-      <input type="date" id="fechaInicio" required>
+    <div class="form-container">
+      <h2>Calcula tu Préstamo</h2>
+      <div id="formularioPrestamo">
+        <label for="montoInput" class="tooltip"><i class="fas fa-dollar-sign"></i> Monto del préstamo ($):
+          <span class="tooltiptext">Ingrese el monto total del préstamo.</span>
+        </label>
+        <input type="number" id="montoInput" placeholder="Ingrese el monto" required>
+        <span class="error-message" id="montoError"></span>
 
-      <button id="calcularBtn">Calcular</button>
-    </div>
-    
-    <div id="resultado">
-      <!-- Los resultados del cálculo se mostrarán aquí -->
-    </div>
-    
-    <div id="historialCalculos">
-      <!-- El historial de cálculos se mostrará aquí -->
-    </div>
+        <label for="tasaInput" class="tooltip"><i class="fas fa-percentage"></i> Tasa de interés anual (%):
+          <span class="tooltiptext">Ingrese la tasa de interés anual.</span>
+        </label>
+        <input type="number" id="tasaInput" placeholder="Ingrese la tasa de interés" required>
+        <span class="error-message" id="tasaError"></span>
 
-    <label for="tasaBusqueda">Buscar por tasa de interés (%):</label>
+        <label for="periodosInput" class="tooltip"><i class="fas fa-calendar-alt"></i> Número de cuotas:
+          <span class="tooltiptext">Ingrese el número total de cuotas.</span>
+        </label>
+        <input type="number" id="periodosInput" placeholder="Ingrese el número de cuotas" required>
+        <span class="error-message" id="periodosError"></span>
+
+        <label for="fechaInicio" class="tooltip"><i class="fas fa-calendar-day"></i> Fecha de inicio del préstamo:
+          <span class="tooltiptext">Seleccione la fecha de inicio del préstamo.</span>
+        </label>
+        <input type="date" id="fechaInicio" required>
+        <span class="error-message" id="fechaError"></span>
+
+        <button id="calcularBtn" class="btn-primary">Calcular</button>
+      </div>
+
+      <div id="resultado" class="result-container">
+        <!-- Los resultados del cálculo se mostrarán aquí -->
+      </div>
+
+      <div id="historialCalculos" class="result-container">
+        <!-- El historial de cálculos se mostrará aquí -->
+      </div>
+
+      <h2>Buscar por Tasa de Interés</h2>
+      <label for="tasaBusqueda"><i class="fas fa-search"></i> Buscar por tasa de interés (%):</label>
       <input type="number" id="tasaBusqueda" placeholder="Ingrese tasa de interés">
-      <button id="buscarBtn">Buscar</button>
-    <div id="resultadosBusqueda">
-      <!-- Los resultados de la búsqueda se mostrarán aquí -->
+      <button id="buscarBtn" class="btn-secondary">Buscar</button>
+      <div id="resultadosBusqueda" class="result-container">
+        <!-- Los resultados de la búsqueda se mostrarán aquí -->
+      </div>
+
+      <div id="errores"></div>
     </div>
-
-    <div id="errores"></div>
-
   </section>
 
   <aside class="aside-index">
@@ -62,6 +88,8 @@
   </footer>
 
 </div>
+
+<div id="notification" class="notification"></div>
 
 <script src="main.js"></script>
 </body>
